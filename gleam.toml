@@ -11,6 +11,14 @@ version = "0.1.0"
 
 [dependencies]
 gleam_stdlib = "~> 0.31"
+wisp = "~> 0.6"
+gleam_erlang = "~> 0.22"
+mist = "~> 0.14"
+gleam_json = "~> 0.6"
+gleam_http = "~> 3.5"
+mungo = "~> 0.20"
+bison = "~> 0.28"
+dotenv_gleam = "~> 1.0"
 
 [dev-dependencies]
 gleeunit = "~> 0.10"

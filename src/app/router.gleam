@@ -1,6 +1,6 @@
 import wisp.{Request, Response}
 import gleam/string_builder
-import gleam/http.{Delete, Get, Post, Put}
+import gleam/http.{Delete, Get, Post}
 import app/config
 import app/books/books_router
 
@@ -15,7 +15,7 @@ pub fn handle_request(req: Request) -> Response {
     // This matches the root path.
     [] -> root(req)
     ["books"] -> {
-      // This matches paths like /books/:id
+      // This matches paths like /books/
       case req.method {
         Get -> books_router.index(req)
         Post -> books_router.create(req)
@@ -26,9 +26,7 @@ pub fn handle_request(req: Request) -> Response {
       // This matches paths like /books/:id
       case req.method {
         Get -> books_router.show(req, id)
-        Put -> books_router.update(req, id)
-        Delete -> books_router.delete(req, id)
-        _ -> wisp.method_not_allowed(allowed: [Get, Put, Delete])
+        _ -> wisp.method_not_allowed(allowed: [Get])
       }
     }
     // This matches all other paths.

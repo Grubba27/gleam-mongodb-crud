@@ -1,6 +1,6 @@
 import wisp.{Request, Response}
 import gleam/string_builder
-import gleam/http.{Delete, Get, Post}
+import gleam/http.{Get, Post}
 import app/config
 import app/books/books_router
 

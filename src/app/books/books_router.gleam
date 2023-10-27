@@ -1,10 +1,12 @@
 import wisp.{Request, Response}
 import gleam/dynamic.{Dynamic}
 import gleam/json
-import gleam/result
 import gleam/option
 import app/books/books
-import app/books/books_model.{Book}
+
+pub type Book {
+  Book(title: String, body: String, author: String)
+}
 
 fn decode_book(json: Dynamic) -> Result(Book, dynamic.DecodeErrors) {
   let decoder =
@@ -38,12 +40,8 @@ pub fn show(_req: Request, id: String) -> Response {
   let assert Ok(book) = books.get_book_by_id(id)
   case option.is_some(book) {
     True -> {
-      let book_obj = option.unwrap(book, Book("", "", ""))
-      json.object([
-        #("title", json.string(book_obj.title)),
-        #("body", json.string(book_obj.body)),
-        #("author", json.string(book_obj.author)),
-      ])
+      let assert Ok(book_obj) = option.to_result(book, "Book not found")
+      todo
     }
 
     False -> {
@@ -53,4 +51,3 @@ pub fn show(_req: Request, id: String) -> Response {
     }
   }
 }
-
